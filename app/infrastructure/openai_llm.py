@@ -6,7 +6,7 @@ from app.domain.interfaces.llm_interface import LLMInterface
 class OpenAILLM(LLMInterface):
     def __init__(self):
         openai.api_key = Config.OPENAI_API_KEY
-        self.model = ChatOpenAI(temperature=0, model="gpt-4o-mini") ## Todo: add model to config
+        self.model = ChatOpenAI(temperature=0, model="gpt-4o-mini") ## todo: add model to config
 
     def generate_text(self, prompt: str) -> str:
         return self.model(prompt).content
