@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from typing import Any, Dict, Optional
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from app.services.agent_service import AgentService
 from app.domain.models.request import Request
 from dotenv import load_dotenv
@@ -22,11 +23,12 @@ app.add_middleware(
 )
 
 class RagRequestModel(BaseModel):
-    query: str ##todo: not sure if this is needed. Looks like agent dont want handle custom query.
-    data: dict | None = None ##todo: data can be a file or json object.
-    params: dict | None = None ##todo: i think this is should be also dataclass.
+    query: str = Field(..., description="User query for the agent to process")
+    data: Optional[Dict[str, Any]] = Field(None, description="Data, can be a file or JSON object")
+    params: Optional[Dict[str, Any]] = Field(None, description="Additional parameters for the agent")
 
 @app.post("/process")
-def process_endpoint(body: RagRequestModel):
+def process_endpoint(body: RagRequestModel, response: Response):
     res = AgentService().handle(Request(body.query, body.data, body.params))
+    response.status_code = res.status_code or 200
     return {"success": res.success, "result": res.result, "error": res.error} ##todo: need error handling. and do not return 200 status code if error.

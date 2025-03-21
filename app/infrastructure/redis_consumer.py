@@ -2,13 +2,13 @@ import redis
 import json
 import requests
 from app.config import Config
-from app.domain.models.request import Request
-from app.services.agent_service import AgentService
+from app.infrastructure.default_agent import DefaultAgent
 from app.domain.interfaces.consumer_interface import MessageConsumerInterface
 
 class RedisConsumer(MessageConsumerInterface):
     def __init__(self):
         self.client = None
+        self.agent = DefaultAgent()
         
     def connect(self) -> None:
         self.client = redis.Redis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
@@ -26,11 +26,10 @@ class RedisConsumer(MessageConsumerInterface):
             if item:
                 try:
                     payload = json.loads(item[1].decode())
-                    req = Request(payload["query"], payload.get("data"), payload.get("params"))
-                    res = AgentService().handle(req)
+                    res = self.agent.handle(payload["query"], payload.get("data"), payload.get("params"))
                     if res.success:
                         requests.post(Config.CALLBACK_URL_SUCCESS, json={"result": res.result})
                     else:
-                        requests.post(Config.CALLBACK_URL_ERROR, json={"error": res.error})
+                        requests.post(Config.CALLBACK_URL_ERROR, json={"error": res.result})
                 except:
                     requests.post(Config.CALLBACK_URL_ERROR, json={"error": "processing failed"})

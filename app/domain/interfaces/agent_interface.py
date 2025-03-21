@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
-from app.domain.models.request import Request
-from app.domain.models.response import Response
+from app.domain.models.agent_result import AgentResult
 
-class AgentInterface(ABC): ##todo: not sure if Agent should handle requests. Maybe it should be only responsible for business logic and request agnostic.
+class AgentInterface(ABC):
     @abstractmethod
-    def handle(self, req: Request, query: str) -> Response:
+    def handle(self, query: str, data: any, params: dict) -> AgentResult:
         pass

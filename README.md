@@ -42,21 +42,12 @@ The template follows a clean hexagonal architecture with clear separation of con
 
 ## Todo
 ```c
-app/domain/interfaces/agent_interface.py
-5:class AgentInterface(ABC): ##todo: not sure if Agent should handle requests. Maybe it should be only responsible for business logic and request agnostic.
+app/infrastructure/default_agent.py
+34:    embedding = self.embedder.embed_texts([query])[0] ## todo: return list of embeddings? need to investigate
+35:    return self.vector_store.search_similar(embedding, params.get("top_k", 5)) ## todo: process all embeddings? need to investigate
 
 app/main.py
-25:    query: str ##todo: not sure if this is needed. Looks like agent dont want handle custom query.
-26:    data: dict | None = None ##todo: data can be a file or json object.
-27:    params: dict | None = None ##todo: i think this is should be also dataclass.
-32:    return {"success": res.success, "result": res.result, "error": res.error} ##todo: need error handling. and do not return 200 status code if error.
-
-app/infrastructure/openai_llm.py
-9:     self.model = ChatOpenAI(temperature=0, model="gpt-4o-mini") ## todo: add model to config
-
-app/infrastructure/default_agent.py
-20:    embedding = self.embedder.embed_texts([query])[0] ## todo: return list of embeddings? need to investigate
-21:    context = self.vector_store.search_similar(embedding, 0.7) ## todo: process all embeddings? need to investigate
+33:    return {"success": res.success, "result": res.result, "error": res.error} ##todo: need error handling. and do not return 200 status code if error.
 ```
 
 ## License

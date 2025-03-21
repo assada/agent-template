@@ -1,5 +1,5 @@
 import openai
-from langchain_community.embeddings import OpenAIEmbeddings ## langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings ## langchain_openai import OpenAIEmbeddings
 from app.config import Config
 from app.domain.interfaces.embeddings_interface import EmbeddingsInterface
 

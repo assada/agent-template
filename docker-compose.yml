@@ -6,6 +6,21 @@ services:
     env_file: .env
     ports:
       - "8080:8080"
+    volumes:
+      - ./app:/app/app
+    depends_on:
+      - redis
+      - chroma
+  
+  fill_vector_store:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "-m", "app.scripts.fill_vector_store"]
+    container_name: ai_agent_scripts
+    env_file: .env
+    volumes:
+      - ./app:/app/app
     depends_on:
       - redis
       - chroma
