@@ -31,4 +31,4 @@ class RagRequestModel(BaseModel):
 def process_endpoint(body: RagRequestModel, response: Response):
     res = AgentService().handle(Request(body.query, body.data, body.params))
     response.status_code = res.status_code or 200
-    return {"success": res.success, "result": res.result, "error": res.error} ##todo: need error handling. and do not return 200 status code if error.
+    return {"success": res.success, "result": res.result, "error": res.error}

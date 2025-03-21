@@ -33,4 +33,4 @@ class DefaultAgent(AgentInterface):
         Such as parse and prepare data, use additional params, etc.
         """
         embedding = self.embedder.embed_texts([query])[0] ## todo: return list of embeddings? need to investigate
-        return self.vector_store.search_similar(embedding, params.get("top_k", 5)) ## todo: process all embeddings? need to investigate
+        return self.vector_store.search_similar(embedding, params.get("top_k", 5))

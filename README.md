@@ -41,13 +41,14 @@ The template follows a clean hexagonal architecture with clear separation of con
 - Dependencies listed in requirements.txt
 
 ## Todo
+
+* Add logging.
+* Add example SQL Db quety for context
+* Create context builder interface
+
 ```c
 app/infrastructure/default_agent.py
-34:    embedding = self.embedder.embed_texts([query])[0] ## todo: return list of embeddings? need to investigate
-35:    return self.vector_store.search_similar(embedding, params.get("top_k", 5)) ## todo: process all embeddings? need to investigate
-
-app/main.py
-33:    return {"success": res.success, "result": res.result, "error": res.error} ##todo: need error handling. and do not return 200 status code if error.
+35:        embedding = self.embedder.embed_texts([query])[0] ## todo: return list of embeddings? need to investigate
 ```
 
 ## License
