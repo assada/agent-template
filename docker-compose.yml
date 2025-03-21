@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: ai_agent_app
+    env_file: .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - chroma
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+  chroma:
+    image: chromadb/chroma:latest
+    container_name: chroma
+    environment:
+      - CHROMA_TELEMETRY_ENABLED=false
+      - ANONYMIZED_TELEMETRY=False
+    ports:
+      - "8000:8000"
