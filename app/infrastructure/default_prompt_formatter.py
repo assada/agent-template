@@ -1,9 +1,7 @@
 from app.domain.interfaces.prompt_interface import PromptInterface
 
 class DefaultPromptFormatter(PromptInterface):
-    def generate_prompt(self, context: list[str], query: str, system_prompt: str) -> str:
-        formatted_context = "\n".join(context)
-        
+    def generate_prompt(self, context: str, query: str, system_prompt: str) -> str:     
         if not system_prompt:
             system_prompt = "You are a helpful assistant that provides accurate answers based on the given context."
             
@@ -12,7 +10,7 @@ Your role:
 {system_prompt}
 
 Use the following context to enhance your understanding of the objective:
-{formatted_context}
+{context}
 
 Query or objective:
 {query}

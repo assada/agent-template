@@ -42,14 +42,7 @@ The template follows a clean hexagonal architecture with clear separation of con
 
 ## Todo
 
-* Add logging.
 * Add example SQL Db quety for context
-* Create context builder interface
-
-```c
-app/infrastructure/default_agent.py
-35:        embedding = self.embedder.embed_texts([query])[0] ## todo: return list of embeddings? need to investigate
-```
 
 ## License
 

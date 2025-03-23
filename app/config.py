@@ -16,5 +16,5 @@ class Config:
         "DEFAULT_SYSTEM_PROMPT", 
         "You are a helpful assistant that provides accurate and relevant information based on the provided context."
     )
-    LOGGING_ENABLED = True
+    LOGGING_ENABLED = os.getenv("LOGGING_ENABLED", "true") == "true"
     LOG_LEVEL = os.getenv("LOG_LEVEL", "debug")
