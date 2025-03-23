@@ -2,6 +2,7 @@ from typing import Any, Dict, Optional
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+from app.config import Config
 from app.services.agent_service import AgentService
 from app.domain.models.request import Request
 from dotenv import load_dotenv
@@ -29,6 +30,6 @@ class RagRequestModel(BaseModel):
 
 @app.post("/process")
 def process_endpoint(body: RagRequestModel, response: Response):
-    res = AgentService().handle(Request(body.query, body.data, body.params))
+    res = AgentService(Config.AGENT_NAME).handle(Request(body.query, body.data, body.params))
     response.status_code = res.status_code or 200
     return {"success": res.success, "result": res.result, "error": res.error}

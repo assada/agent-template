@@ -8,12 +8,22 @@ class DefaultPromptFormatter(PromptInterface):
             system_prompt = "You are a helpful assistant that provides accurate answers based on the given context."
             
         prompt = f"""
+Your role:
 {system_prompt}
 
-Context:
+Use the following context to enhance your understanding of the objective:
 {formatted_context}
 
-Query:
+Query or objective:
 {query}
+
+The response should be formatted strictly as a JOSN file, following the structure provided below. Do not include any code blocks within the JOSN format.
+
+**Response Format:**
+```json
+{{
+    "answer": <answer to the query or objective>
+}}
+```
 """
         return prompt.strip()

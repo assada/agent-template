@@ -1,6 +1,7 @@
 import os
 
 class Config:
+    AGENT_NAME = os.getenv("AGENT_NAME", "default")
     REDIS_HOST = os.getenv("REDIS_HOST", "")
     REDIS_PORT = int(os.getenv("REDIS_PORT", "6379"))
     CALLBACK_URL_SUCCESS = os.getenv("CALLBACK_URL_SUCCESS", "")
@@ -15,3 +16,5 @@ class Config:
         "DEFAULT_SYSTEM_PROMPT", 
         "You are a helpful assistant that provides accurate and relevant information based on the provided context."
     )
+    LOGGING_ENABLED = True
+    LOG_LEVEL = os.getenv("LOG_LEVEL", "debug")
