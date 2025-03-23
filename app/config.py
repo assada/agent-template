@@ -7,6 +7,7 @@ class Config:
     CALLBACK_URL_SUCCESS = os.getenv("CALLBACK_URL_SUCCESS", "")
     CALLBACK_URL_ERROR = os.getenv("CALLBACK_URL_ERROR", "")
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+    MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "")
     OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
     ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
     OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")

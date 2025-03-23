@@ -8,5 +8,5 @@ class AgentService:
         self.agent = agent or DefaultAgent("DefaultAgent")
 
     def handle(self, req: Request) -> Response:
-        result = self.agent.handle(req.query, req.data, req.params)
+        result = self.agent.handle(req.objective, req.data, req.params)
         return result.to_response()

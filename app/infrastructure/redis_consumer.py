@@ -26,7 +26,7 @@ class RedisConsumer(MessageConsumerInterface):
             if item:
                 try:
                     payload = json.loads(item[1].decode())
-                    res = self.agent.handle(payload["query"], payload.get("data"), payload.get("params"))
+                    res = self.agent.handle(payload["objective"], payload.get("data"), payload.get("params"))
                     if res.success:
                         requests.post(Config.CALLBACK_URL_SUCCESS, json={"result": res.result})
                     else:

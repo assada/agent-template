@@ -42,7 +42,14 @@ The template follows a clean hexagonal architecture with clear separation of con
 
 ## Todo
 
+* Fix multipart form data request handling (FastApi shit)
 * Add example SQL Db quety for context
+* Provide available tools to prompt and ask LLM use provided tools. (handle LLM response to execute tools as pipeline)
+
+```c
+app/infrastructure/tools/ocr.py
+38:        return all_pages ## todo: add error handling
+```
 
 ## License
 

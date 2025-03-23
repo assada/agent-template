@@ -11,21 +11,30 @@ from typing import Optional
 from app.utils.logger import Logger
 
 class DefaultAgent(AgentInterface):
-    def __init__(self, agent_name: str, prompt_service: Optional[PromptService] = None, llm: Optional[LLMService] = None, context_builder: Optional[ContextBuilderInterface] = None):
+    def __init__(
+            self, 
+            agent_name: str, 
+            prompt_service: Optional[PromptService] = None, 
+            llm: Optional[LLMService] = None, 
+            context_builder: Optional[ContextBuilderInterface] = None,
+            tools: Optional[dict] = None
+        ):
         self.llm = llm or LLMService()
         self.prompt_service = prompt_service or PromptService()
         self.context_builder = context_builder or DefaultContextBuilder()
         self.agent_name = agent_name
         self.logger = Logger(self.agent_name)
-        
-    def handle(self, query: str, data: any, params: dict) -> AgentResult:
+        self.tools = tools or {}
+        self.context_builder.set_tools(self.tools)
+
+    def handle(self, objective: str, data: any, params: dict) -> AgentResult:
         try:
-            context = self.context_builder.prepare_context(query, data, params)
+            context = self.context_builder.prepare_context(objective, data, params)
             if not context or len(context) == 0:
                 self.logger.warning("Context is empty")
             self.logger.debug(context)
 
-            prompt = self.prompt_service.format_prompt(context, query, Config.DEFAULT_SYSTEM_PROMPT)
+            prompt = self.prompt_service.format_prompt(context, objective, Config.DEFAULT_SYSTEM_PROMPT)
             self.logger.debug(prompt)
 
             answer = self.llm.generate(prompt)
