@@ -10,7 +10,8 @@ from app.infrastructure.default_context_builder import DefaultContextBuilder
 from app.infrastructure.default_prompt_formatter import DefaultPromptFormatter
 from app.infrastructure.openai_embedder import OpenAIEmbedder
 from app.infrastructure.openai_llm import OpenAILLM
-from app.infrastructure.tools.ocr import OCRTool
+from app.infrastructure.tools.local_ocr import LocalOCRTool
+from app.infrastructure.tools.mistral_ocr import MistralOCRTool
 from app.services.agent_service import AgentService
 from app.domain.models.request import Request
 from dotenv import load_dotenv
@@ -56,7 +57,7 @@ async def process_endpoint(response: Response, body: RagRequestModel = Depends(c
     llm = LLMService(OpenAILLM())
     context_builder = DefaultContextBuilder(VectorStoreService(ChromaVectorStore()), OpenAIEmbedder())
     tools = {
-        "ocr": OCRTool()
+        "ocr": LocalOCRTool() ## or MistralOCRTool()
     }
     agent = DefaultAgent(Config.AGENT_NAME, prompt_service, llm, context_builder, tools)
 

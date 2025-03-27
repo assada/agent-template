@@ -15,7 +15,7 @@ class DefaultContextBuilder(ContextBuilderInterface):
 
         self.logger.debug(f"Tools: {self.tools}")
 
-        #tags = params.get("tags", [])
+        tags = params.get("tags", [])
         #self.logger.debug(f"Tags: {tags}")
 
         if data and data.get("file_name"): ## Bad way to handle file upload
@@ -25,8 +25,8 @@ class DefaultContextBuilder(ContextBuilderInterface):
             ocr_tool = self.tools["ocr"]
             ocr_result = ocr_tool.execute(data)
             self.logger.debug(f"OCR Result: {ocr_result}")
-            return ocr_result
-            #return f"Document: {ocr_result} \n\n Tags: {tags}"
+            #return ocr_result
+            return f"**Document:** {ocr_result} \n\n **Tags:** {tags}"
     
         return "\n".join(self._search_vector_store(objective, data, params))
     

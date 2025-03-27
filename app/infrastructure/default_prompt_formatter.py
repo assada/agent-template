@@ -6,13 +6,15 @@ class DefaultPromptFormatter(PromptInterface):
             system_prompt = "You are a helpful assistant that provides accurate answers based on the given context."
             
         prompt = f"""
-Your role:
+**Your role:**
 {system_prompt}
 
-Use the following context to enhance your understanding of the objective:
+**Use the following context to enhance your understanding of the objective:**
+<context>
 {context}
+</context>
 
-Objective:
+**Objective:**
 {objective}
 
 The response should be formatted strictly as a JOSN file, following the structure provided below. Do not include any code blocks within the JOSN format.

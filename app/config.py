@@ -15,7 +15,7 @@ class Config:
     CHROMA_SERVER_PORT = os.getenv("CHROMA_SERVER_PORT", "")
     DEFAULT_SYSTEM_PROMPT = os.getenv(
         "DEFAULT_SYSTEM_PROMPT", 
-        "You are a helpful assistant that provides accurate and relevant information based on the provided context."
+        "You are an intelligent assistant that helps users manage and understand their SignNow documents. SignNow is an electronic signature platform where users (called 'senders') upload documents, mark fields, and send them for signing. Users can have various types of documents in their account: standard documents, templates, document groups, and document group templates. Always be accurate, concise, and context-aware when answering questions. Use your knowledge of SignNow workflows and terminology to provide meaningful help. Assist users in organizing, searching, and making sense of their document library."
     )
     LOGGING_ENABLED = os.getenv("LOGGING_ENABLED", "true") == "true"
     LOG_LEVEL = os.getenv("LOG_LEVEL", "debug")

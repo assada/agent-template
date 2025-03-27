@@ -4,11 +4,11 @@ from app.domain.interfaces.tool_interface import ToolInterface
 from app.utils.logger import Logger
 
 
-class OCRTool(ToolInterface):
+class MistralOCRTool(ToolInterface):
     def __init__(self):
-        super().__init__("OCR", "Extract text from an image")
+        super().__init__("Mistral OCR", "Extract text from an image using Mistral AI")
         self.mistralClient = Mistral(api_key=Config.MISTRAL_API_KEY)
-        self.logger = Logger("OCRTool")
+        self.logger = Logger("Mistral OCR Tool")
 
     def execute(self, input: any) -> str:
         self.logger.debug("Executing OCR Tool")
